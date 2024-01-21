@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+    db:
+        container_name: airline-pg
+        build:
+            dockerfile: ./Dockerfile
+        restart: always
+        environment:
+            - POSTGRES_USER=abhinn
+            - POSTGRES_PASSWORD=sarkar
+        ports:
+            - "5432:5432"
+        volumes:
+            - /Users/abhinnsarkar/Documents/Code/SelfLearning/airline/airline-database/data:/var/lib/postgresql/data
+volumes:
+    db:
+        driver: local
