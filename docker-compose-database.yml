@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-    db:
+    airline-pg-db:
         container_name: airline-pg
         build:
             dockerfile: ./Dockerfile
@@ -12,6 +12,11 @@ services:
             - "5432:5432"
         volumes:
             - /Users/abhinnsarkar/Documents/Code/SelfLearning/airline/airline-database/data:/var/lib/postgresql/data
+        networks:
+            - airline-network
 volumes:
     db:
         driver: local
+networks:
+    airline-network:
+        external: true

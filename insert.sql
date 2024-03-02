@@ -1,4 +1,3 @@
-
 INSERT INTO public.customers (customer_id, first_name, middle_name, last_name, email, phone_number, dob)
 VALUES 
   ('88465809-0db6-4578-aba8-dc4820063f01', 'Mauricio', null, 'Swanborough', 'eswanborough0@twitpic.com', '853-148-3672', '10/4/2023'),
@@ -24,12 +23,12 @@ VALUES
   ('5f36c8ae-393b-46b1-a40c-ae3eed072831', 'Gerard', 'Shawnee', 'Danniell', 'sdannielli@dion.ne.jp', null, '11/17/2023'),
   ('ac2ea857-8953-4865-8757-b48e3a33aec7', 'Rubetta', 'Ximenez', 'Kilalea', 'xkilaleaj@topsy.com', '973-221-5391', '11/1/2023'),
   ('b249c309-6218-47b5-83df-e114df1910f3', 'Cyndi', 'Farris', 'Lyte', 'flytek@zimbio.com', '213-524-7780', '9/23/2023'),
-  ('d80f8335-8746-441a-9cd2-3f2e35551779', 'Darrelle', null, 'Pym', 'cpyml@xrea.com', null, '4/16/2023'),
+  ('d80f8335-8746-441a-9cd2-3f2e35551779', 'Darrelle','Barret', 'Pym', 'cpyml@xrea.com', null, '4/16/2023'),
   ('e7e169e9-18ed-4e29-8bd2-b63e605b29ba', 'Jorge', 'Traver', 'Staig', 'tstaigm@cornell.edu', '927-215-8891', '2/20/2023')
 ;
 
  
-INSERT INTO public.airports (airport_code, city_name, state_province_name, country_name) 
+INSERT INTO public.airports (airport_code, city_name, state_province_name, country_name)
 VALUES
 ('LAX', 'Los Angeles', 'California', 'United States Of America'),
 ('YVR', 'Vancouver', 'British Columbia', 'Canada'),
@@ -102,23 +101,3 @@ VALUES
   ('023', 'TCK023', 'W23', 'Economy', 'e7e169e9-18ed-4e29-8bd2-b63e605b29ba', '3c4d5e6f'),
   ('024', 'TCK024', 'U21', 'Business', 'e8b1645a-0a36-4e92-a6d3-6d52c50b3b01', '3c4d5e6f'),
   ('025', 'TCK025', 'V22', 'First Class', 'f946ab6f-0424-4d66-8b76-9e1cc5e1a1f9', '1a2b3c4d');
-
-
-
-
-
-
-
-
-INSERT INTO public.students(student_id, student_name, class_name) VALUES
-
-    ('123', 'Abhinn', 'S'),
-    ('124', 'James', 'B'),
-    ('125', 'Xavier', 'X')
-;
-
-INSERT INTO public.teachers(teacher_id, teacher_name, class_name) VALUES
-    ('t1', 'Daniel', 'S'),
-    ('t2', 'Sarah', 'B'),
-    ('t3', 'John', 'A')
-;
