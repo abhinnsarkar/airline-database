@@ -5,48 +5,62 @@ DROP TABLE IF EXISTS public.routes CASCADE;
 DROP TABLE IF EXISTS public.airports CASCADE;
 DROP TABLE IF EXISTS public.customers CASCADE;
 
-CREATE TABLE IF NOT EXISTS public.customers (
-    customer_id VARCHAR PRIMARY KEY,
-    first_name VARCHAR,
-    middle_name VARCHAR,
-    last_name VARCHAR,
-    email VARCHAR,
-    phone_number VARCHAR,
-    dob DATE
+-- DDL for customers table
+CREATE TABLE public.customers (
+    customer_id UUID PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    middle_name VARCHAR(255),
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(255),
+    dob DATE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS public.airports (    
-    airport_code VARCHAR PRIMARY KEY,
-    city_name VARCHAR,
-    state_province_name VARCHAR,
-    country_name VARCHAR
+-- DDL for airports table
+CREATE TABLE public.airports (
+    airport_code VARCHAR(3) PRIMARY KEY,
+    city_name VARCHAR(255) NOT NULL,
+    state_province_name VARCHAR(255) NOT NULL,
+    country_name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS public.routes (
-    route_id VARCHAR PRIMARY KEY,
-    origin_airport_code VARCHAR NOT NULL REFERENCES public.airports(airport_code),
-    destination_airport_code VARCHAR NOT NULL REFERENCES public.airports(airport_code)
+-- DDL for routes table
+CREATE TABLE public.routes (
+    route_id UUID PRIMARY KEY,
+    origin_airport_code VARCHAR(3) NOT NULL,
+    destination_airport_code VARCHAR(3) NOT NULL,
+    FOREIGN KEY (origin_airport_code) REFERENCES public.airports(airport_code),
+    FOREIGN KEY (destination_airport_code) REFERENCES public.airports(airport_code)
 );
 
-CREATE TABLE IF NOT EXISTS public.aircrafts (
-    model VARCHAR PRIMARY KEY,
-    aircraft_capacity INTEGER
+-- DDL for aircrafts table
+CREATE TABLE public.aircrafts (
+    model VARCHAR(255) PRIMARY KEY,
+    aircraft_capacity INTEGER NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS public.flights (
-    flight_id VARCHAR PRIMARY KEY,
-    flight_number VARCHAR,
-    route_id VARCHAR NOT NULL REFERENCES public.routes(route_id),
-    flight_model VARCHAR NOT NULL REFERENCES public.aircrafts(model),
+-- DDL for flights table
+CREATE TABLE public.flights (
+    flight_id UUID PRIMARY KEY,
+    flight_number VARCHAR(255) NOT NULL,
+    route_id UUID NOT NULL,
+    flight_model VARCHAR(255) NOT NULL,
     departure_date DATE NOT NULL,
-    departure_time TIME NOT NULL 
+    departure_time TIME NOT NULL,
+    FOREIGN KEY (route_id) REFERENCES public.routes(route_id)
 );
 
-CREATE TABLE IF NOT EXISTS public.tickets (
-    ticket_id VARCHAR PRIMARY KEY,
-    ticket_number VARCHAR,
-    seat_number VARCHAR,
-    seat_class VARCHAR,
-    customer_id VARCHAR NOT NULL REFERENCES public.customers(customer_id),
-    flight_id VARCHAR NOT NULL REFERENCES public.flights(flight_id)
+-- DDL for tickets table
+CREATE TABLE public.tickets (
+    ticket_id VARCHAR(255) PRIMARY KEY,
+    ticket_number VARCHAR(255) NOT NULL,
+    seat_number VARCHAR(255) NOT NULL,
+    seat_class VARCHAR(255) NOT NULL,
+    customer_id UUID NOT NULL,
+    customer_name VARCHAR(255) NOT NULL,
+    booking_date_time DATE NOT NULL,
+    end_date_time DATE NOT NULL,
+    flight_id UUID NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES public.customers(customer_id),
+    FOREIGN KEY (flight_id) REFERENCES public.flights(flight_id)
 );
