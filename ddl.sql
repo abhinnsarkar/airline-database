@@ -47,12 +47,13 @@ CREATE TABLE public.flights (
     flight_model VARCHAR(255) NOT NULL,
     departure_date DATE NOT NULL,
     departure_time TIME NOT NULL,
-    FOREIGN KEY (route_id) REFERENCES public.routes(route_id)
+    FOREIGN KEY (route_id) REFERENCES public.routes(route_id),
+    FOREIGN KEY (flight_model) REFERENCES public.aircrafts(model)
 );
 
 -- DDL for tickets table
 CREATE TABLE public.tickets (
-    ticket_id VARCHAR(255) PRIMARY KEY,
+    ticket_id UUID PRIMARY KEY,
     ticket_number VARCHAR(255) NOT NULL,
     seat_number VARCHAR(255) NOT NULL,
     seat_class VARCHAR(255) NOT NULL,
