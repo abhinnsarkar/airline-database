@@ -1,9 +1,13 @@
-DROP TABLE IF EXISTS public.tickets CASCADE;
-DROP TABLE IF EXISTS public.flights CASCADE;
+DROP TABLE IF EXISTS public.aircraft_models CASCADE;
+DROP TABLE IF EXISTS public.aircraft_seat CASCADE;
 DROP TABLE IF EXISTS public.aircrafts CASCADE;
-DROP TABLE IF EXISTS public.routes CASCADE;
 DROP TABLE IF EXISTS public.airports CASCADE;
 DROP TABLE IF EXISTS public.customers CASCADE;
+DROP TABLE IF EXISTS public.flights CASCADE;
+DROP TABLE IF EXISTS public.routes CASCADE;
+DROP TABLE IF EXISTS public.seat_booking CASCADE;
+DROP TABLE IF EXISTS public.servicing CASCADE;
+DROP TABLE IF EXISTS public.tickets CASCADE;
 
 -- DDL for customers table
 CREATE TABLE public.customers (
@@ -13,7 +17,9 @@ CREATE TABLE public.customers (
     last_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone_number VARCHAR(255),
-    dob DATE NOT NULL
+    dob DATE NOT NULL,
+    effective_start DATE NOT NULL,
+    effective_end DATE NOT null    
 );
 
 -- DDL for airports table
@@ -33,10 +39,33 @@ CREATE TABLE public.routes (
     FOREIGN KEY (destination_airport_code) REFERENCES public.airports(airport_code)
 );
 
--- DDL for aircrafts table
-CREATE TABLE public.aircrafts (
+-- DDL for aircraft_models table
+CREATE TABLE public.aircraft_models (
     model VARCHAR(255) PRIMARY KEY,
-    aircraft_capacity INTEGER NOT NULL
+    manufacturer VARCHAR(255) NOT NULL
+    -- aircraft_capacity INTEGER NOT NULL
+);
+
+CREATE TABLE public.aircrafts (
+    aircraft_id UUID PRIMARY KEY,
+    aircraft_model VARCHAR(255) NOT NULL,
+    FOREIGN KEY (aircraft_model) REFERENCES public.aircraft_models(model)
+);
+
+CREATE TABLE public.aircraft_seat (
+    seat_id UUID PRIMARY KEY,
+    seat_number VARCHAR(255) NOT NULL,
+    aircraft_model VARCHAR(255) NOT NULL,
+    seat_class VARCHAR(255) NOT NULL,
+    FOREIGN KEY (aircraft_model) REFERENCES public.aircraft_models(model)
+);
+
+CREATE TABLE public.servicing (
+    servicing_id UUID PRIMARY KEY,
+    aircraft_id UUID NOT NULL,
+    servicing_date DATE NOT NULL,
+    technician VARCHAR(255) NOT NULL,
+    FOREIGN KEY (aircraft_id) REFERENCES public.aircrafts(aircraft_id)
 );
 
 -- DDL for flights table
@@ -47,21 +76,44 @@ CREATE TABLE public.flights (
     flight_model VARCHAR(255) NOT NULL,
     departure_date DATE NOT NULL,
     departure_time TIME NOT NULL,
+    effective_start DATE NOT NULL,
+    effective_end DATE NOT null,
     FOREIGN KEY (route_id) REFERENCES public.routes(route_id),
-    FOREIGN KEY (flight_model) REFERENCES public.aircrafts(model)
+    FOREIGN KEY (flight_model) REFERENCES public.aircraft_models(model)
+);
+
+CREATE TABLE public.seat_booking (
+    seat_id UUID NOT NULL,
+    flight_id UUID NOT NULL,
+    available BOOLEAN NOT NULL,
+    effective_start DATE NOT NULL,
+    effective_end DATE NOT null,
+    PRIMARY KEY (seat_id, flight_id),
+    FOREIGN KEY (seat_id) REFERENCES public.aircraft_seat(seat_id),
+    FOREIGN KEY (flight_id) REFERENCES public.flights(flight_id)
 );
 
 -- DDL for tickets table
 CREATE TABLE public.tickets (
     ticket_id UUID PRIMARY KEY,
     ticket_number VARCHAR(255) NOT NULL,
-    seat_number VARCHAR(255) NOT NULL,
-    seat_class VARCHAR(255) NOT NULL,
+    -- seat_number VARCHAR(255) NOT NULL,
+    -- seat_class VARCHAR(255) NOT NULL,
+    seat_id UUID NOT NULL,
+    flight_id UUID NOT NULL,
     customer_id UUID NOT NULL,
     customer_name VARCHAR(255) NOT NULL,
-    booking_date_time DATE NOT NULL,
-    end_date_time DATE NOT NULL,
-    flight_id UUID NOT NULL,
+    effective_start DATE NOT NULL,
+    effective_end DATE NOT null,
     FOREIGN KEY (customer_id) REFERENCES public.customers(customer_id),
+    FOREIGN KEY (seat_id, flight_id) REFERENCES public.seat_booking(seat_id, flight_id)
+    -- FOREIGN KEY (flight_id) REFERENCES public.flights(flight_id),
+    -- FOREIGN KEY (seat_id) REFERENCES public.seat_booking(seat_id),
+    -- FOREIGN KEY (flight_id) REFERENCES public.seat_booking(flight_id)
+);
+
+CREATE TABLE public.flights_schedule (
+    -- schedule_id UUID PRIMARY KEY,
+    flight_id UUID NOT NULL,
     FOREIGN KEY (flight_id) REFERENCES public.flights(flight_id)
 );
