@@ -1,0 +1,31 @@
+__________________________________________________________________
+select * from seat_allocation
+join flight_schedule on flight_schedule_id
+join flight on flight_id
+join route on route_id
+where seat_allocation.available = true 
+and route.origin_airport_code = 'van' 
+and route.destination_airport_code = 'sea'
+and month(flight_schedule.departure_date) = 5
+__________________________________________________________________
+flights from a to b
+
+SELECT *
+FROM flight_schedule
+JOIN flight ON flight_schedule.flight_id = flight.flight_id
+JOIN route ON flight.route_id = route.route_id
+WHERE route.origin_airport_code = 'YVR'
+AND route.destination_airport_code = 'YYZ';
+__________________________________________________________________
+1661ed8d-d733-4f1e-89f1-980678878305
+
+
+
+
+
+
+
+
+
+flights from a to b leaving on this date
+all available flights

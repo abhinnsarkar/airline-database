@@ -26,12 +26,12 @@ INSERT INTO public.model_seat (model_seat_id, seat_number, seat_class, flight_mo
 VALUES 
 ('79efab4b-5f92-4725-b065-6f9292f678d6', '1A', 'Economy', 'Boeing 737'),
 ('eed003f6-3b33-4a12-a679-9b92f0e6b9a0', '1B', 'Economy', 'Boeing 737'),
-('7b31f23d-d540-4f57-8db0-9e17a9e08da0', '2A', 'Economy', 'Boeing 737'),
-('0b8d6e27-3edf-48a6-863f-1b40f2de1925', '2B', 'Economy', 'Boeing 737'),
+('7b31f23d-d540-4f57-8db0-9e17a9e08da0', '1C', 'Economy', 'Boeing 737'),
+('0b8d6e27-3edf-48a6-863f-1b40f2de1925', '1D', 'Economy', 'Boeing 737'),
 ('871d2a64-4f19-4f4e-a503-69ee939573d5', '1A', 'Economy', 'Airbus A320'),
 ('2e62e6b5-2674-4fb3-8a9d-8ba3e208da3c', '1B', 'Economy', 'Airbus A320'),
-('d509fdd5-1f88-4d8b-b81f-158b75ddc0ab', '2A', 'Economy', 'Airbus A320'),
-('b0a06a15-cb5c-4f24-84d3-94e87ff098fd', '2B', 'Economy', 'Airbus A320'),
+('d509fdd5-1f88-4d8b-b81f-158b75ddc0ab', '1C', 'Economy', 'Airbus A320'),
+('b0a06a15-cb5c-4f24-84d3-94e87ff098fd', '1D', 'Economy', 'Airbus A320'),
 ('17934a90-6cb4-4183-b478-3bb286c04dd7', '1A', 'Economy', 'Embraer E190'),
 ('57145f8d-6c95-40b4-bbb3-603f8b74c0d8', '1B', 'Economy', 'Embraer E190')
 ;

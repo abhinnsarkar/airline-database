@@ -1,3 +1,12 @@
+DROP TABLE IF EXISTS public.customer CASCADE;
+DROP TABLE IF EXISTS public.flight_model CASCADE;
+DROP TABLE IF EXISTS public.route CASCADE;
+DROP TABLE IF EXISTS public.model_seat CASCADE;
+DROP TABLE IF EXISTS public.flight CASCADE;
+DROP TABLE IF EXISTS public.flight_schedule CASCADE;
+DROP TABLE IF EXISTS public.seat_allocation CASCADE;
+DROP TABLE IF EXISTS public.ticket CASCADE;
+
 
 -- keeps track of every customer of the airline and only has one line per customer no matter how many times they have bought from us
 CREATE TABLE public.customer (
@@ -40,7 +49,8 @@ CREATE TABLE public.flight_schedule (
     flight_id UUID NOT NULL,
     departure_date DATE NOT NULL,
     departure_time TIME NOT NULL,
-    CONSTRAINT unique_flight_schedule UNIQUE (flight_id, departure_date, departure_time)
+    CONSTRAINT unique_flight_schedule UNIQUE (flight_id, departure_date, departure_time),
+    FOREIGN KEY (flight_id) REFERENCES public.flight(flight_id)
 );
 
 CREATE TABLE public.seat_allocation (
