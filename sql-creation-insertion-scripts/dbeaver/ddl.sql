@@ -76,9 +76,11 @@ CREATE TABLE public.seat_allocation (
     flight_schedule_id UUID NOT NULL,
     model_seat_id UUID NOT NULL,
     available BOOLEAN NOT NULL DEFAULT true,
+    customer_id UUID,
     CONSTRAINT unique_seat_allocation_constraint UNIQUE (flight_schedule_id, model_seat_id),
     FOREIGN KEY (flight_schedule_id) REFERENCES public.flight_schedule(flight_schedule_id),
-    FOREIGN KEY (model_seat_id) REFERENCES public.model_seat(model_seat_id)
+    FOREIGN KEY (model_seat_id) REFERENCES public.model_seat(model_seat_id),
+    FOREIGN KEY (customer_id) REFERENCES public.customer(customer_id) ON DELETE SET NULL
 );
 
 CREATE TABLE public.ticket (
